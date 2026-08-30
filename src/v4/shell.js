@@ -6,7 +6,7 @@
 // always wires up runtime behavior (mobile drawer, theme toggle).
 
 import { renderShell } from './shell-render.js';
-import { openPanel, openMenu } from './menus.js';
+import { openMenu } from './menus.js';
 import { showToast } from './toast.js';
 import { showModal } from './modal.js';
 import { initNetworkAlerts } from './network-alerts.js';
@@ -248,43 +248,19 @@ function bindThemeToggle() {
 //  TOPBAR DROPDOWNS
 // ────────────────────────
 
-const MESSAGES = [
-  { from: 'Sarah K.',     text: 'Can you take a look at the design?', initials: 'SK', color: 'var(--primary)',  time: '4m', unread: true },
-  { from: 'Michael R.',   text: 'Lunch tomorrow at noon?',            initials: 'MR', color: 'var(--blue)',     time: '32m', unread: true },
-  { from: 'Emily W.',     text: 'Sprint retro notes posted',          initials: 'EW', color: 'var(--purple)',   time: '2h', unread: false },
-  { from: 'Diego R.',     text: 'Customer feedback summary ready',    initials: 'DR', color: 'var(--yellow)',   time: 'Mon', unread: false }
-];
-
 function openShortcutsModal() {
   const row = (k, label) => `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border-color-light);font-size:13px"><span style="color:var(--text)">${label}</span><span>${k.split('+').map((key) => `<kbd style="font-family:var(--font);font-size:11px;background:var(--bg-surface-secondary);border:1px solid var(--border-color);border-radius:3px;padding:2px 6px;margin-left:3px">${key}</kbd>`).join('')}</span></div>`;
   showModal({
     title: 'Keyboard shortcuts',
     size: 'md',
     body: `
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 24px">
-        <div>
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin:4px 0 6px">Global</div>
-          ${row('⌘+K', 'Open command palette')}
-          ${row('⌘+/', 'This help')}
-          ${row('Esc', 'Close modal / palette')}
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin:14px 0 6px">Navigation</div>
-          ${row('G then D', 'Go to dashboard')}
-          ${row('G then I', 'Go to inbox')}
-          ${row('G then K', 'Go to kanban')}
-        </div>
-        <div>
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin:4px 0 6px">Inbox</div>
-          ${row('J', 'Next message')}
-          ${row('K', 'Previous message')}
-          ${row('R', 'Reply')}
-          ${row('S', 'Star message')}
-          ${row('#', 'Move to trash')}
-          ${row('C', 'Compose new')}
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin:14px 0 6px">Editor</div>
-          ${row('⌘+B', 'Bold')}
-          ${row('⌘+I', 'Italic')}
-          ${row('⌘+K', 'Insert link')}
-        </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin:4px 0 6px">Global</div>
+        ${row('⌘+K', 'Open command palette')}
+        ${row('⌘+/', 'This help')}
+        ${row('Esc', 'Close modal / palette')}
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin:14px 0 6px">Navigation</div>
+        ${row('G then D', 'Go to dashboard')}
       </div>
     `,
     actions: [{ label: 'Close', variant: 'primary' }]
@@ -335,79 +311,7 @@ function visibleUserMenuItems() {
   return visibles.flatMap((item, i) => (i === 0 ? [item] : ['-', item]));
 }
 
-function buildMessagesPanel() {
-  const unreadCount = MESSAGES.filter((m) => m.unread).length;
-  const wrap = document.createElement('div');
-  wrap.className = 'panel-content';
-  wrap.innerHTML = `
-    <div class="panel-header">
-      <span class="panel-title">Messages</span>
-      ${unreadCount ? `<span class="panel-badge">${unreadCount} new</span>` : ''}
-      <a href="inbox.html" class="panel-action">Open inbox</a>
-    </div>
-    <div class="panel-list">
-      ${MESSAGES.map((m, i) => `
-        <button type="button" class="panel-row${m.unread ? ' unread' : ''}" data-i="${i}">
-          <span class="panel-avatar" style="background:${m.color}">${m.initials}</span>
-          <span class="panel-body">
-            <span class="panel-from">${m.from}</span>
-            <span class="panel-text">${m.text}</span>
-          </span>
-          <span class="panel-time">${m.time}</span>
-        </button>
-      `).join('')}
-    </div>
-    <div class="panel-footer">
-      <a href="inbox.html" class="panel-link">View all messages</a>
-    </div>
-  `;
-  return wrap;
-}
-
-function openMessageDetail(m) {
-  showModal({
-    title: m.from,
-    size: 'md',
-    body: `
-      <div style="display:flex;gap:12px;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border-color-light)">
-        <div style="width:38px;height:38px;border-radius:50%;background:${m.color};color:white;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px">${m.initials}</div>
-        <div style="flex:1">
-          <div style="font-size:13.5px;font-weight:600;color:var(--text)">${m.from}</div>
-          <div style="font-size:11.5px;color:var(--text-muted)">${m.time}</div>
-        </div>
-      </div>
-      <div style="font-size:13.5px;color:var(--text);line-height:1.6;margin-bottom:16px">${m.text}</div>
-      <textarea class="form-control" rows="3" placeholder="Type a reply…" style="margin-bottom:0"></textarea>
-    `,
-    actions: [
-      { label: 'Cancel', variant: 'ghost' },
-      { label: 'Open in inbox', variant: 'outline', action: () => { window.location.href = 'inbox.html'; } },
-      { label: 'Send reply', variant: 'primary', action: () => showToast('Reply sent', { variant: 'success' }) }
-    ]
-  });
-}
-
 function bindTopbarPanels() {
-  const msg = document.querySelector('.tb-messages');
-  if (msg) {
-    msg.addEventListener('click', (e) => {
-      e.preventDefault(); e.stopPropagation();
-      const panel = buildMessagesPanel();
-      panel.addEventListener('click', (ev) => {
-        const row = ev.target.closest('.panel-row');
-        if (row) {
-          ev.stopPropagation();
-          const i = parseInt(row.dataset.i, 10);
-          MESSAGES[i].unread = false;
-          row.classList.remove('unread');
-          row.closest('.menu-popover')?.remove();
-          openMessageDetail(MESSAGES[i]);
-        }
-      });
-      openPanel(msg, panel, { className: 'panel-messages', width: 360 });
-    });
-  }
-
   const account = document.querySelector('.tb-account');
   if (account) {
     account.addEventListener('click', (e) => {

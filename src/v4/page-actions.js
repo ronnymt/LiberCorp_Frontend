@@ -217,7 +217,7 @@ export function initPageActions() {
   const SKIP_SELECTOR = [
     '.toggle', '.todo-cb', '.chart-tab', '.card-opt-btn', '.chip', '.chip-close',
     '.menu-item', '.sidebar-toggle', '.theme-toggle', '.more-btn', '.nav-link',
-    '.inbox-folder', '.tb-notifications', '.tb-messages', '.tb-avatar', '.modal-close'
+    '.tb-notifications', '.tb-avatar', '.modal-close'
   ].join(', ');
 
   document.addEventListener('click', (e) => {

@@ -13,7 +13,7 @@
 //   PAGES        comma list of page slugs (matches keys below) — default: all
 
 import { chromium } from 'playwright';
-import { spawn, spawnSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
@@ -21,42 +21,16 @@ import path from 'node:path';
 const OUT_DIR = path.resolve('docs/screenshots');
 const VIEWPORT = { width: 1440, height: 900 };
 
-// Hero shots referenced by README.md, re-encoded as downscaled WebP so the
-// GitHub README stays sharp but loads fast on a cold cache (~55KB vs ~380KB
-// per image). Requires cwebp (`brew install webp`) — skipped with a warning
-// if it's not installed.
-const README_VARIANTS = [
-  ['light/dashboard.png', 'dashboard-light.webp'],
-  ['dark/dashboard.png', 'dashboard-dark.webp'],
-  ['light/inbox.png', 'inbox.webp'],
-  ['light/kanban.png', 'kanban.webp'],
-  ['light/theme.png', 'theme.webp']
-];
-
-// Pages to capture, ordered for the README/showcase reel.
+// Pages to capture.
 const PAGES = [
-  ['dashboard',    '/production/index.html'],
-  ['analytics',    '/production/index2.html'],
-  ['sales',        '/production/index3.html'],
-  ['operations',   '/production/index4.html'],
-  ['inbox',        '/production/inbox.html'],
-  ['kanban',       '/production/kanban.html'],
-  ['calendar',     '/production/calendar.html'],
-  ['chat',         '/production/chat.html'],
-  ['file-manager', '/production/file_manager.html'],
-  ['charts',       '/production/chartjs.html'],
-  ['echarts',      '/production/echarts.html'],
-  ['tables',       '/production/tables.html'],
-  ['form',         '/production/form.html'],
-  ['playground',   '/production/playground.html'],
-  ['theme',        '/production/theme.html'],
-  ['icons',        '/production/icons.html'],
-  ['typography',   '/production/typography.html'],
-  ['profile',      '/production/profile.html'],
-  ['settings',     '/production/settings.html'],
-  ['invoice',      '/production/invoice.html'],
-  ['login',        '/production/login.html'],
-  ['landing',      '/production/landing.html']
+  ['dashboard',   '/production/index.html'],
+  ['clientes',    '/production/clientes.html'],
+  ['reportes',    '/production/reportes.html'],
+  ['facturacion', '/production/facturacion.html'],
+  ['theme',       '/production/theme.html'],
+  ['profile',     '/production/profile.html'],
+  ['settings',    '/production/settings.html'],
+  ['login',       '/production/login.html']
 ];
 
 function spawnPreview() {
@@ -103,21 +77,6 @@ async function shoot(page, url, slug, theme) {
   return file;
 }
 
-async function writeReadmeVariants() {
-  if (spawnSync('cwebp', ['-version']).error) {
-    console.log('→ cwebp not found — skipping README WebP variants (`brew install webp`)');
-    return;
-  }
-  await mkdir(path.join(OUT_DIR, 'readme'), { recursive: true });
-  for (const [src, out] of README_VARIANTS) {
-    const srcPath = path.join(OUT_DIR, src);
-    if (!existsSync(srcPath)) {continue;}
-    const outPath = path.join(OUT_DIR, 'readme', out);
-    const res = spawnSync('cwebp', ['-quiet', '-q', '82', '-sharp_yuv', '-m', '6', '-resize', '1440', '0', srcPath, '-o', outPath]);
-    console.log(res.status === 0 ? `  ✓ readme/${out}` : `  ✗ readme/${out} — cwebp exited ${res.status}`);
-  }
-}
-
 async function main() {
   await mkdir(OUT_DIR, { recursive: true });
   await mkdir(path.join(OUT_DIR, 'light'), { recursive: true });
@@ -148,7 +107,6 @@ async function main() {
   }
 
   await writeFile(path.join(OUT_DIR, 'manifest.json'), JSON.stringify(manifest, null, 2));
-  await writeReadmeVariants();
 
   await browser.close();
   kill();
