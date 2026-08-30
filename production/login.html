@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/login.js"></script>
+<style>
+  /* Pagina de login con su propio look oscuro "ops console" -- deliberado,
+     independiente del tema claro/oscuro del resto de la app (mismo criterio
+     que muchos paneles empresariales: el login es un momento de marca aparte).
+     Los acentos (--lock-teal/--lock-teal-dk/--lock-indigo) apuntan a los
+     tokens reales de marca (var(--primary)/var(--indigo)) -- si el primary
+     cambia, esta pagina lo sigue solo. El resto (fondos oscuros, superficies
+     de vidrio) son valores propios de este look, no existen en el sistema
+     claro. */
+  .lock-page {
+    --lock-bg-0: #060910;
+    --lock-bg-1: #0b1220;
+    --lock-surface: rgba(255, 255, 255, 0.045);
+    --lock-surface-border: rgba(255, 255, 255, 0.09);
+    --lock-teal: var(--primary);
+    --lock-teal-dk: var(--primary-dk);
+    --lock-teal-soft: rgba(26, 187, 156, 0.35);
+    --lock-indigo: var(--indigo);
+    --lock-text-hi: #eef2f7;
+    --lock-text-lo: #8b95a7;
+    --lock-text-faint: #5a6478;
+
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    font-family: var(--font);
+    color: var(--lock-text-hi);
+    background: radial-gradient(ellipse 120% 80% at 50% -10%, #10192e 0%, var(--lock-bg-1) 45%, var(--lock-bg-0) 100%);
+  }
+
+  .lock-page .grid-field {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 10%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 10%, transparent 75%);
+  }
+
+  #topology {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  .lock-page .brand {
+    position: absolute;
+    top: 36px;
+    left: 44px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 5;
+  }
+  .lock-page .brand-mark {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, var(--lock-teal), var(--lock-teal-dk));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: #06111a;
+  }
+  .lock-page .brand-name {
+    font-weight: 700;
+    font-size: 14.5px;
+    letter-spacing: 0.01em;
+    color: var(--lock-text-hi);
+  }
+  .lock-page .brand-sub {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--lock-text-faint);
+    letter-spacing: 0.04em;
+    margin-left: 2px;
+  }
+
+  .lock-page .card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 392px;
+    padding: 40px 38px 32px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02));
+    border: 1px solid var(--lock-surface-border);
+    backdrop-filter: blur(28px) saturate(140%);
+    -webkit-backdrop-filter: blur(28px) saturate(140%);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.02),
+      0 30px 60px -20px rgba(0,0,0,0.65),
+      0 0 90px -30px var(--lock-teal-soft);
+    animation: lock-card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes lock-card-in {
+    from { opacity: 0; transform: translateY(14px) scale(0.985); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .lock-page .avatar-row { display: flex; justify-content: center; margin-bottom: 22px; }
+  .lock-page .avatar {
+    position: relative;
+    width: 62px;
+    height: 62px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #1c2b45, #101a2c);
+    border: 1px solid var(--lock-surface-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--lock-teal);
+  }
+  .lock-page .avatar-lock {
+    position: absolute;
+    bottom: -6px;
+    right: -6px;
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    background: var(--lock-bg-1);
+    border: 1px solid var(--lock-surface-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lock-text-lo);
+  }
+  .lock-page .avatar-lock svg { width: 12px; height: 12px; }
+
+  .lock-page h1 {
+    font-size: 21px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .lock-page .sub {
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--lock-text-lo);
+    margin: 0 0 28px;
+    padding: 0 6px;
+  }
+
+  .lock-page label {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--lock-text-lo);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 9px;
+  }
+  .lock-page .field { position: relative; margin-bottom: 16px; }
+  .lock-page .field svg.icon-lead {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    color: var(--lock-text-faint);
+    transition: color 0.15s ease;
+    pointer-events: none;
+  }
+  .lock-page .field input {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--lock-surface-border);
+    border-radius: 11px;
+    padding: 13px 42px 13px 40px;
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--lock-text-hi);
+    outline: none;
+    transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  }
+  .lock-page .field input::placeholder { color: var(--lock-text-faint); letter-spacing: 0.06em; }
+  .lock-page .field input:focus {
+    border-color: var(--lock-teal-soft);
+    background: rgba(26,187,156,0.045);
+    box-shadow: 0 0 0 3.5px rgba(26,187,156,0.10);
+  }
+  .lock-page .field input:focus ~ svg.icon-lead { color: var(--lock-teal); }
+
+  .lock-page .toggle-visibility {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--lock-text-faint);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    border-radius: 6px;
+    transition: color 0.15s ease;
+  }
+  .lock-page .toggle-visibility:hover { color: var(--lock-text-lo); }
+  .lock-page .toggle-visibility svg { width: 16px; height: 16px; }
+
+  .lock-page button.unlock {
+    width: 100%;
+    padding: 13.5px;
+    margin-top: 6px;
+    border: none;
+    border-radius: 11px;
+    background: linear-gradient(135deg, var(--lock-teal), var(--lock-teal-dk));
+    color: #06171a;
+    font-weight: 700;
+    font-size: 14.5px;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 10px 24px -8px var(--lock-teal-soft);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease, opacity 0.15s ease;
+  }
+  .lock-page button.unlock:hover:not(:disabled) { filter: brightness(1.06); transform: translateY(-1px); box-shadow: 0 14px 28px -8px var(--lock-teal-soft); }
+  .lock-page button.unlock:active:not(:disabled) { transform: translateY(0); }
+  .lock-page button.unlock:disabled { opacity: 0.6; cursor: not-allowed; }
+  .lock-page button.unlock svg { width: 15px; height: 15px; }
+
+  .lock-page .build-tag {
+    position: absolute;
+    bottom: 28px;
+    left: 44px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--lock-text-faint);
+    z-index: 5;
+  }
+
+  @media (max-width: 560px) {
+    .lock-page .brand { top: 22px; left: 22px; }
+    .lock-page .build-tag { left: 22px; bottom: 18px; }
+    .lock-page .card {
+      max-width: calc(100% - 32px);
+      padding: 34px 26px 26px;
+      border-radius: 18px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lock-page .card { animation: none; }
+  }
+</style>
+</head>
+<body class="lock-page">
+
+  <div class="grid-field"></div>
+  <canvas id="topology"></canvas>
+
+  <div class="brand">
+    <div class="brand-mark">L</div>
+    <div class="brand-name">LiberCorp</div>
+    <div class="brand-sub">/ PANEL OPERATIVO</div>
+  </div>
+
+  <div class="build-tag">LiberCorp</div>
+
+  <div class="card">
+    <div class="avatar-row">
+      <div class="avatar">
+        L
+        <div class="avatar-lock">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="10" width="16" height="10" rx="2"/>
+            <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <h1>Bienvenido de nuevo</h1>
+    <p class="sub">Ingresa tus credenciales para acceder al panel de monitoreo y facturacion.</p>
+
+    <form id="login-form">
+      <label for="email">Correo</label>
+      <div class="field">
+        <svg class="icon-lead" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 5l6 4 6-4"/></svg>
+        <input type="email" id="email" placeholder="tu@empresa.com" required autocomplete="username">
+      </div>
+
+      <label for="password">Contrasena</label>
+      <div class="field">
+        <svg class="icon-lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="4" y="10" width="16" height="10" rx="2"/>
+          <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+        </svg>
+        <input id="password" type="password" placeholder="**********" required autocomplete="current-password">
+        <button class="toggle-visibility" type="button" id="toggle-pwd" aria-label="Mostrar contrasena">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+
+      <button type="submit" class="unlock">
+        Ingresar
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M5 12h14M13 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </form>
+  </div>
+
+</body>
+</html>

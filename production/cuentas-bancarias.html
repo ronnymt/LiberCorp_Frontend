@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuentas | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/cuentas-bancarias.js"></script>
+</head>
+<body data-shell="admin" data-page="cuentas-bancarias" data-breadcrumb="Home > Configuracion General|configuracion.html > Cuentas">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="card">
+    <div class="card-header" style="justify-content:space-between">
+      <div class="card-title">Cuentas bancarias</div>
+      <button type="button" class="btn btn-primary btn-sm" id="cb-agregar-btn" hidden>Agregar banco</button>
+    </div>
+    <div class="card-body p-0">
+      <p style="padding:16px;margin:0;font-size:12.5px;color:var(--text-muted)">
+        Estas son las cuentas que aparecen como "Cuenta destino" al registrar un pago (Clientes → Facturacion → Pagos).
+      </p>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Banco</th>
+              <th>Moneda</th>
+              <th>Numero de cuenta</th>
+              <th>CCI</th>
+              <th>Estado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="cb-rows"><tr><td colspan="7">Cargando...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>

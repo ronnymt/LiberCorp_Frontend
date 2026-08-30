@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transacciones | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/transacciones.js"></script>
+</head>
+<body data-shell="admin" data-page="transacciones" data-breadcrumb="Home > Facturacion|facturacion.html > Transacciones">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-body">
+      <div class="row col-5" style="margin-bottom:0">
+        <div class="modal-form-row">
+          <label for="tx-desde">Desde</label>
+          <input type="date" id="tx-desde" class="form-control">
+        </div>
+        <div class="modal-form-row">
+          <label for="tx-hasta">Hasta</label>
+          <input type="date" id="tx-hasta" class="form-control">
+        </div>
+        <div class="modal-form-row">
+          <label for="tx-cliente">Cliente</label>
+          <select id="tx-cliente" class="form-control">
+            <option value="">Cualquiera</option>
+          </select>
+        </div>
+        <div class="modal-form-row">
+          <label for="tx-cuenta">Cuenta</label>
+          <select id="tx-cuenta" class="form-control">
+            <option value="">Cualquiera</option>
+          </select>
+        </div>
+        <div class="modal-form-row">
+          <label for="tx-usuario">Registrado por</label>
+          <select id="tx-usuario" class="form-control">
+            <option value="">Cualquiera</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" style="gap:12px;flex-wrap:wrap">
+      <div class="card-title">Pagos</div>
+      <div class="search-box" style="width:260px">
+        <svg class="s-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
+        <input type="text" id="tx-buscar-texto" placeholder="Buscar por cliente, cuenta, comprobante…" aria-label="Buscar en transacciones">
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Periodo / Puerto</th>
+              <th>Cuenta</th>
+              <th>Fecha y hora</th>
+              <th>Monto</th>
+              <th>Comprobante</th>
+              <th>Registrado por</th>
+            </tr>
+          </thead>
+          <tbody id="tx-rows"><tr><td colspan="8">Cargando...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="tx-pagination" hidden></div>
+    </div>
+    <div class="card-body" style="border-top:1px solid var(--border-color)">
+      <strong>Total cobrado (segun filtros):</strong> <span id="tx-total">-</span>
+    </div>
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>

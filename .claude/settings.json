@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "Bash(rclone lsf:*)",
+      "Bash(rclone ls:*)",
+      "Bash(rclone lsd:*)",
+      "Bash(rclone lsl:*)",
+      "Bash(rclone size:*)",
+      "Bash(rclone listremotes:*)",
+      "Bash(journalctl:*)",
+      "Bash(dig:*)",
+      "Bash(gh search:*)"
+    ]
+  }
+}

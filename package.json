@@ -1,0 +1,85 @@
+{
+  "name": "libercorpapp",
+  "version": "4.1.1",
+  "type": "module",
+  "description": "LiberCorp -- monitoreo de puertos y facturacion para ISP sobre datos de LibreNMS. Construido sobre el template Gentelella v4 (Vite 8, vanilla JS).",
+  "scripts": {
+    "dev": "vite --clearScreen false",
+    "build": "NODE_ENV=production vite build",
+    "build:dev": "NODE_ENV=development vite build",
+    "preview": "vite preview",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write src/",
+    "format:check": "prettier --check src/",
+    "analyze": "npm run build && open dist/stats.html",
+    "new": "node scripts/new-page.mjs",
+    "screenshots": "node scripts/screenshots.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "deploy:preview": "bash scripts/deploy-preview.sh",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ColorlibHQ/gentelella.git"
+  },
+  "keywords": [
+    "admin",
+    "dashboard",
+    "template",
+    "html",
+    "css",
+    "scss",
+    "vanilla-js",
+    "echarts",
+    "datatables",
+    "vite",
+    "modern",
+    "pwa",
+    "dark-mode",
+    "command-palette",
+    "theme-generator"
+  ],
+  "author": "Aigars Silkalns",
+  "license": "MIT",
+  "main": "src/main-v4.js",
+  "types": "types/gentelella.d.ts",
+  "exports": {
+    ".": "./src/main-v4.js",
+    "./v4/*": "./src/v4/*.js",
+    "./scss/*": "./src/scss/*",
+    "./types": "./types/gentelella.d.ts",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "production",
+    "types",
+    "vite.config.js"
+  ],
+  "bugs": {
+    "url": "https://github.com/ColorlibHQ/gentelella/issues"
+  },
+  "homepage": "https://github.com/ColorlibHQ/gentelella#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.62.1",
+    "eslint": "^10.8.0",
+    "eslint-config-prettier": "^10.1.8",
+    "playwright": "^1.62.1",
+    "prettier": "^3.9.6",
+    "rollup-plugin-visualizer": "^7.0.1",
+    "sass": "^1.102.0",
+    "terser": "^5.49.2",
+    "vite": "^8.2.0"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "datatables.net": "^3.0.1",
+    "echarts": "^6.1.0",
+    "jszip": "^3.10.1",
+    "leaflet": "^1.9.4"
+  }
+}

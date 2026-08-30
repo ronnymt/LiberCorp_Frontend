@@ -1,0 +1,25 @@
+{
+  "name": "LiberCorp",
+  "short_name": "LiberCorp",
+  "description": "Monitoreo de puertos y facturacion para ISP, sobre datos de LibreNMS.",
+  "icons": [
+    { "src": "images/android-chrome-192x192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "images/android-chrome-512x512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "images/android-chrome-512x512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "theme_color": "#1ABB9C",
+  "background_color": "#f5f7fb",
+  "display": "standalone",
+  "orientation": "any",
+  "scope": "./",
+  "start_url": "production/index.html",
+  "id": "libercorpapp",
+  "lang": "es",
+  "categories": ["productivity", "business"],
+  "shortcuts": [
+    { "name": "Dashboard", "url": "production/index.html" },
+    { "name": "Clientes", "url": "production/clientes.html" },
+    { "name": "Boletas", "url": "production/facturacion.html" },
+    { "name": "Editor de mensajes", "url": "production/editor-mensajes.html" }
+  ]
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vencimientos | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/vencimientos.js"></script>
+</head>
+<body data-shell="admin" data-page="vencimientos" data-breadcrumb="Home > Configuracion General|configuracion.html > Vencimientos">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="row col-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Aplicar masivamente</div>
+      </div>
+      <div class="card-body">
+        <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:16px">
+          Pisa dia de pago / crear factura / dias de gracia de <strong>todos</strong> los clientes a la vez (incluye
+          los que ya tenian un override individual). Util para alinear a todos de una sola vez -- deja un campo vacio
+          para no tocarlo.
+        </p>
+        <form class="modal-form" novalidate>
+          <div class="modal-form-row">
+            <label for="vc-dia-masivo">Dia de pago</label>
+            <select id="vc-dia-masivo"><option value="">No cambiar</option></select>
+          </div>
+          <div class="modal-form-row">
+            <label for="vc-dias-crear-factura-masivo">Crear factura</label>
+            <select id="vc-dias-crear-factura-masivo"><option value="">No cambiar</option></select>
+          </div>
+          <div class="modal-form-row">
+            <label for="vc-dias-gracia-masivo">Dias de gracia</label>
+            <select id="vc-dias-gracia-masivo"><option value="">No cambiar</option></select>
+          </div>
+        </form>
+        <button class="btn btn-warning btn-sm" id="vc-aplicar-masivo" style="margin-top:16px">Aplicar a todos los clientes</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Facturacion (default)</div>
+      </div>
+      <div class="card-body">
+        <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:16px">
+          Valores por defecto para todo cliente que no tenga su propio override (en "Configuracion" del perfil de
+          cliente). "Dias de gracia" todavia no afecta el estado "vencido" (solo se guarda). "Crear factura" SI genera
+          la boleta del mes actual por adelantado, pero solo para clientes de cobro fijo (percentil/variable siempre
+          espera a que termine el mes).
+        </p>
+        <form class="modal-form" novalidate>
+          <div class="modal-form-row">
+            <label for="vc-dia-default">Dia de pago</label>
+            <select id="vc-dia-default"></select>
+          </div>
+          <div class="modal-form-row">
+            <label for="vc-dias-crear-factura">Crear factura</label>
+            <select id="vc-dias-crear-factura"></select>
+          </div>
+          <div class="modal-form-row">
+            <label for="vc-dias-gracia">Dias de gracia</label>
+            <select id="vc-dias-gracia"></select>
+          </div>
+        </form>
+        <button class="btn btn-primary btn-sm" id="vc-guardar-default" style="margin-top:16px">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>

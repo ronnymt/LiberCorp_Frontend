@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editor de mensajes | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/editor-mensajes.js"></script>
+</head>
+<body data-shell="admin" data-page="editor-mensajes" data-breadcrumb="Home &gt; Mensajeria|editor-mensajes.html &gt; Editor de mensajes">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="row col-2" style="align-items:start">
+
+    <!-- ===== Columna izquierda: Editor ===== -->
+    <div class="card">
+      <div class="card-header"><div class="card-title">Redactar mensaje</div></div>
+      <div class="card-body">
+
+        <div class="em-template-select">
+          <span aria-hidden="true">&#127991;&#65039;</span>
+          <span>Tipo de cobro:</span>
+          <select id="em-tipocobro">
+            <option value="">Todos los tipos</option>
+            <option value="variable">Variable</option>
+            <option value="fijo_parcial">Fijo parcial</option>
+            <option value="fijo_total">Fijo total</option>
+          </select>
+        </div>
+
+        <div class="modal-form-row">
+          <label for="em-cliente-toggle">Cliente(s)</label>
+          <div class="em-multiselect" id="em-cliente-ms">
+            <button type="button" class="form-control em-multiselect-toggle" id="em-cliente-toggle" aria-haspopup="listbox" aria-expanded="false">Selecciona uno o mas clientes</button>
+            <div class="em-multiselect-menu" id="em-cliente-menu" hidden role="listbox"></div>
+          </div>
+        </div>
+
+        <div id="em-cliente-badge" class="em-cobro-badge" style="display:none"></div>
+
+        <div id="em-vacio-aviso" style="font-size:12.5px;color:var(--text-muted);margin-bottom:16px">
+          Elige uno o mas clientes para calcular el monto a cobrar.
+        </div>
+
+        <div id="em-fijo-total-block" hidden class="modal-form-row">
+          <label for="em-monto-fijo">Monto fijo mensual</label>
+          <input type="text" id="em-monto-fijo" class="form-control cell-mono" readonly>
+        </div>
+
+        <div id="em-puertos-block" hidden class="em-ports-editor">
+          <div class="em-port-row header">
+            <span>Puerto</span><span>Consumo</span><span>Tarifa</span><span>Subtotal</span>
+          </div>
+          <div id="em-puertos-rows"></div>
+        </div>
+
+        <div class="row col-2">
+          <div class="modal-form-row">
+            <label for="em-tipo-cambio">Tipo de cambio USD &rarr; PEN</label>
+            <input type="number" step="0.0001" min="0" id="em-tipo-cambio" class="form-control">
+          </div>
+          <div class="modal-form-row">
+            <label for="em-cuenta-destino">Cuenta destino</label>
+            <select id="em-cuenta-destino" class="form-control">
+              <option value="">Selecciona una cuenta</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-form-row">
+          <label for="em-plantilla">Plantilla guardada</label>
+          <select id="em-plantilla" class="form-control">
+            <option value="">Sin plantilla (mensaje en blanco)</option>
+          </select>
+        </div>
+
+        <div class="modal-form-row">
+          <label for="em-mensaje">Mensaje base</label>
+          <textarea id="em-mensaje" class="form-control" rows="8" placeholder="Escribe el mensaje para el cliente. Usa las variables de abajo -- se reemplazan automaticamente en la vista previa."></textarea>
+          <div class="em-var-hint" id="em-chips"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== Columna derecha: Vista previa ===== -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Vista previa</div>
+        <span class="card-subtitle" style="margin-left:auto">Se actualiza en vivo</span>
+      </div>
+      <div class="card-body">
+        <div class="em-preview-bubble" id="em-preview">
+          <p style="color:var(--text-muted);font-size:13px;margin:0">Elige un cliente y escribe un mensaje para ver la vista previa.</p>
+        </div>
+
+        <div class="em-total-box" id="em-total-box" hidden>
+          <span class="label" id="em-total-label">Total a cobrar</span>
+          <span class="amt" id="em-total-amt">-</span>
+        </div>
+
+        <div class="em-send-bar">
+          <div class="em-channels" id="em-canal">
+            <button type="button" class="em-chan active" data-canal="sms">SMS</button>
+            <button type="button" class="em-chan" data-canal="email">Email</button>
+            <button type="button" class="em-chan" data-canal="whatsapp">WhatsApp</button>
+          </div>
+          <button type="button" class="btn-send" id="em-enviar-btn">Enviar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>

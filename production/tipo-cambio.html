@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tipo de cambio | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/tipo-cambio.js"></script>
+</head>
+<body data-shell="admin" data-page="tipo-cambio" data-breadcrumb="Home > Configuracion General|configuracion.html > Tipo de cambio">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Tipo de cambio por periodo</div>
+        <div class="card-subtitle">Usado para convertir montos entre PEN/USD en reportes (ej. "Reporte de deuda por cliente"). Si un periodo no tiene valor propio, los reportes usan el mas cercano.</div>
+      </div>
+      <button type="button" class="btn btn-primary btn-sm" id="tc-agregar-btn" hidden>Agregar tipo de cambio</button>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Periodo</th>
+              <th>Valor (S/ por US$1)</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tc-rows"><tr><td colspan="3">Cargando...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>

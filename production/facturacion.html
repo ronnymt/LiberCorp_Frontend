@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Facturacion | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/facturacion.js"></script>
+</head>
+<body data-shell="admin" data-page="facturacion" data-breadcrumb="Home > Facturacion">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-header" style="gap:12px;flex-wrap:wrap">
+      <div class="card-title">Boletas</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <div class="search-box" style="width:220px">
+          <svg class="s-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
+          <input type="text" id="filtro-texto" placeholder="Buscar por corporativo…" aria-label="Buscar boletas">
+        </div>
+        <select id="filtro-estado" class="form-control" style="width:160px">
+          <option value="">Todos los estados</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="parcial">Parcial</option>
+          <option value="pagado">Pagado</option>
+          <option value="vencido">Vencido</option>
+        </select>
+        <input type="month" id="filtro-periodo" class="form-control" style="width:160px">
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-compact">
+          <thead>
+            <tr>
+              <th>Corporativo</th>
+              <th>Periodo</th>
+              <th>Vencimiento</th>
+              <th>Total</th>
+              <th>Pagado</th>
+              <th>Saldo</th>
+              <th>Estado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="facturacion-rows"><tr><td colspan="8">Cargando...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="facturacion-pagination" hidden></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-title">Resumen (segun filtros)</div></div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Detalle</th>
+              <th>Cantidad</th>
+              <th>Total</th>
+              <th>Cobrado</th>
+              <th>Saldo</th>
+            </tr>
+          </thead>
+          <tbody id="resumen-rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estadisticas de facturacion | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/estadisticas-facturacion.js"></script>
+</head>
+<body data-shell="admin" data-page="estadisticas-facturacion" data-breadcrumb="Home > Facturacion|facturacion.html > Estadisticas">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-body">
+      <div class="row col-3" style="margin-bottom:0;align-items:end">
+        <div class="modal-form-row">
+          <label for="ef-anio">Año</label>
+          <select id="ef-anio" class="form-control"></select>
+        </div>
+        <div class="modal-form-row">
+          <label for="ef-moneda">Moneda</label>
+          <select id="ef-moneda" class="form-control">
+            <option value="PEN">PEN</option>
+            <option value="USD">USD</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row col-4" id="ef-kpis" style="margin-bottom:16px">
+    <div class="card"><div class="stat">
+      <div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2h6l1 4h3v2h-1l-2 12H6L4 8H3V6h3l1-4z"/><path d="M9 12h6"/></svg></div>
+      <div class="stat-content">
+        <div class="stat-label">Facturado</div>
+        <div class="stat-value-row"><span class="stat-value" id="kpi-facturado">-</span></div>
+        <div class="stat-subtext">Boletas emitidas este año</div>
+      </div>
+    </div></div>
+    <div class="card"><div class="stat">
+      <div class="stat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+      <div class="stat-content">
+        <div class="stat-label">Cobrado</div>
+        <div class="stat-value-row"><span class="stat-value" id="kpi-cobrado">-</span></div>
+        <div class="stat-subtext">De esas mismas boletas</div>
+      </div>
+    </div></div>
+    <div class="card"><div class="stat">
+      <div class="stat-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+      <div class="stat-content">
+        <div class="stat-label">Tasa de cobranza</div>
+        <div class="stat-value-row"><span class="stat-value" id="kpi-tasa">-</span></div>
+        <div class="stat-subtext">Cobrado / facturado</div>
+      </div>
+    </div></div>
+    <div class="card"><div class="stat">
+      <div class="stat-icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></div>
+      <div class="stat-content">
+        <div class="stat-label">Boletas vencidas</div>
+        <div class="stat-value-row"><span class="stat-value" id="kpi-vencidas">-</span></div>
+        <div class="stat-subtext">Ahora mismo, todos los clientes</div>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Ingresos mensuales</div>
+        <div class="card-subtitle">Facturado (por periodo de la boleta) vs cobrado (por fecha del pago) — no son la misma boleta necesariamente</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div id="ef-chart" style="height:320px"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Detalle por mes</div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Mes</th>
+              <th>Boletas</th>
+              <th>Facturado</th>
+              <th>Cobrado</th>
+              <th>Pendiente</th>
+              <th>% Cobrado</th>
+            </tr>
+          </thead>
+          <tbody id="ef-tabla-rows"><tr><td colspan="6">Cargando...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>

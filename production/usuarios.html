@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Usuarios | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/usuarios.js"></script>
+</head>
+<body data-shell="admin" data-page="usuarios" data-breadcrumb="Home > Usuarios">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="row col-3" style="margin-bottom:16px">
+    <div class="card"><div class="stat"><div class="stat-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg></div><div class="stat-content"><div class="stat-label">Total usuarios</div><div class="stat-value-row"><span class="stat-value" id="kpi-total">-</span></div></div></div></div>
+    <div class="card"><div class="stat"><div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1l3 6 6 .9-4.5 4.4 1 6.7L12 16l-5.5 3 1-6.7L3 7.9 9 7z"/></svg></div><div class="stat-content"><div class="stat-label">Administradores</div><div class="stat-value-row"><span class="stat-value" id="kpi-admins">-</span></div></div></div></div>
+    <div class="card"><div class="stat"><div class="stat-icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg></div><div class="stat-content"><div class="stat-label">Inactivos</div><div class="stat-value-row"><span class="stat-value" id="kpi-inactivos">-</span></div></div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" style="gap:12px;flex-wrap:wrap;justify-content:space-between">
+      <div class="users-filters">
+        <div class="search-box" style="width:240px">
+          <svg class="s-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
+          <input type="text" id="usuarios-search" placeholder="Buscar por nombre o correo…" aria-label="Buscar usuarios">
+        </div>
+        <select class="form-control" id="filter-rol" style="width:160px;height:32px" aria-label="Filtrar por rol">
+          <option value="">Todos los roles</option>
+        </select>
+        <select class="form-control" id="filter-estado" style="width:140px;height:32px" aria-label="Filtrar por estado">
+          <option value="">Todos los estados</option>
+          <option value="activo">Activos</option>
+          <option value="inactivo">Inactivos</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-outline" id="editar-roles-btn">Roles y permisos</button>
+        <button class="btn btn-primary" id="nuevo-usuario-btn">+ Nuevo usuario</button>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Rol</th>
+              <th>Estado</th>
+              <th data-orderable="false"></th>
+            </tr>
+          </thead>
+          <tbody id="usuarios-rows"><tr><td colspan="4">Cargando...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Descargar graficas | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/descargar-graficas.js"></script>
+</head>
+<body data-shell="admin" data-page="descargar-graficas" data-breadcrumb="Home > Mensajeria|editor-mensajes.html > Descargar graficas">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Descargar graficas de trafico</div>
+        <div class="card-subtitle">Empaqueta en un .zip las graficas archivadas de uno o varios clientes, para el rango de meses que elijas. Cada imagen se nombra "Cliente-MesAño-Puerto".</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="modal-form-row">
+        <label>Clientes</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+          <div class="search-box" style="width:100%;max-width:320px">
+            <svg class="s-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
+            <input type="text" id="dg-buscar-cliente" placeholder="Buscar cliente…" aria-label="Buscar cliente">
+          </div>
+          <select id="dg-filtro-pago" class="form-control" style="width:200px" aria-label="Filtrar por estado de pago">
+            <option value="todos" selected>Todos</option>
+            <option value="pendiente">Con deuda pendiente</option>
+            <option value="al-dia">Al dia</option>
+          </select>
+        </div>
+        <div id="dg-clientes-list" style="max-height:280px;overflow-y:auto;border:1px solid var(--border-color);border-radius:var(--radius-sm);padding:4px 8px">
+          <label style="display:flex;align-items:center;gap:8px;padding:8px 4px;border-bottom:1px solid var(--border-color-light);font-weight:var(--font-weight-medium)">
+            <input type="checkbox" id="dg-select-all" style="width:auto">
+            Seleccionar todos
+          </label>
+          <div id="dg-clientes-checks"><p style="color:var(--text-muted);font-size:12.5px;padding:8px 4px">Cargando clientes...</p></div>
+        </div>
+      </div>
+      <div class="row col-2" style="margin-bottom:0">
+        <div class="modal-form-row">
+          <label for="dg-desde">Mes desde</label>
+          <input type="month" id="dg-desde" class="form-control">
+        </div>
+        <div class="modal-form-row">
+          <label for="dg-hasta">Mes hasta</label>
+          <input type="month" id="dg-hasta" class="form-control">
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:16px">
+        <button type="button" class="btn btn-primary" id="dg-descargar">Descargar ZIP</button>
+        <span id="dg-estado" style="font-size:12.5px;color:var(--text-muted)"></span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>

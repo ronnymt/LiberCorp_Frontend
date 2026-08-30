@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estado de pagos | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/estado-pagos.js"></script>
+</head>
+<body data-shell="admin" data-page="estado-pagos" data-breadcrumb="Home > Reporteria|reportes.html > Estado de pagos">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="card">
+    <div class="card-header" style="gap:12px;flex-wrap:wrap">
+      <div class="card-title">Estado de pagos por mes</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <div class="search-box" style="width:220px">
+          <svg class="s-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
+          <input type="text" id="ep-buscar-texto" placeholder="Buscar cliente…" aria-label="Buscar cliente">
+        </div>
+        <input type="month" id="ep-mes" class="form-control" style="width:160px">
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th style="text-align:center">Pagado</th>
+              <th style="text-align:center">Pagado parcial</th>
+            </tr>
+          </thead>
+          <tbody id="ep-rows"><tr><td colspan="3">Cargando...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="ep-pagination" hidden></div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>

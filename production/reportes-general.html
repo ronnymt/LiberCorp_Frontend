@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reportes Generales | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/reportes-general.js"></script>
+</head>
+<body data-shell="admin" data-page="reportes-general" data-breadcrumb="Home > Reporteria > Reportes Generales">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-header">
+      <div class="card-title">Generar reporte</div>
+    </div>
+    <div class="card-body">
+      <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:16px">
+        Elige un reporte, ajusta los filtros que aplican y descarga en el formato que necesites.
+      </p>
+
+      <div class="modal-form-row" style="max-width:460px">
+        <label for="reporte-select">Selecciona un reporte</label>
+        <select id="reporte-select" class="form-control" style="font-weight:var(--font-weight-bold);font-size:14.5px">
+          <option value="deuda-mensual">Deuda mensual general</option>
+          <option value="ingresos-fecha">Ingresos por fecha</option>
+          <option value="deuda-cliente">Reporte de deuda por cliente (mes)</option>
+          <option value="pagos-cliente">Reporte de pagos por cliente</option>
+        </select>
+      </div>
+      <p id="reporte-desc" style="font-size:12.5px;color:var(--text-muted);margin:8px 0 16px"></p>
+
+      <hr style="border:none;border-top:1px solid var(--border-color);margin:0 0 16px">
+
+      <!-- ===== Filtros: Deuda mensual por cliente ===== -->
+      <div class="filtro-set" data-set="deuda-mensual">
+        <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:14px">
+          Lista a TODOS los corporativos activos, un mes por columna, mostrando el saldo pendiente de cada uno -- un cliente sin boleta ese mes sale con "-". El mes en curso todavia puede cambiar (no termino de calcularse).
+        </p>
+        <div class="modal-form" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 16px;margin-bottom:6px">
+          <div class="modal-form-row" style="margin:0">
+            <label for="rg-meses">Meses hacia atras</label>
+            <select id="rg-meses" class="form-control">
+              <option value="3">Ultimos 3 meses</option>
+              <option value="6" selected>Ultimos 6 meses</option>
+              <option value="12">Ultimos 12 meses</option>
+              <option value="24">Ultimos 24 meses</option>
+            </select>
+          </div>
+          <div class="modal-form-row" style="margin:0">
+            <label for="rg-corporativo">Cliente / Corporativo</label>
+            <select id="rg-corporativo" class="form-control">
+              <option value="">Todos los clientes</option>
+            </select>
+          </div>
+          <div class="modal-form-row" style="margin:0">
+            <label for="rg-moneda">Moneda</label>
+            <select id="rg-moneda" class="form-control">
+              <option value="">Ambas (USD y PEN)</option>
+              <option value="PEN">Solo PEN</option>
+              <option value="USD">Solo USD</option>
+            </select>
+          </div>
+          <div class="modal-form-row" style="margin:0">
+            <label for="rg-orden">Ordenar por</label>
+            <select id="rg-orden" class="form-control">
+              <option value="nombre">Nombre (A-Z)</option>
+              <option value="total">Monto mayor a menor</option>
+              <option value="antiguedadDeuda">Cantidad de meses (deuda mas antigua primero)</option>
+            </select>
+          </div>
+          <div class="modal-form-row" style="margin:0">
+            <label for="rg-tipo-pago">Tipo de pago</label>
+            <select id="rg-tipo-pago" class="form-control">
+              <option value="">Todos</option>
+              <option value="variable">Variable</option>
+              <option value="fijo_parcial">Fijo parcial</option>
+              <option value="fijo_total">Fijo total</option>
+              <option value="libre">Libre</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-form-row" style="margin:0 0 14px">
+          <label>Estado de pago</label>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:4px">
+            <label style="display:flex;align-items:center;gap:6px;font-weight:normal">
+              <input type="checkbox" id="rg-estado-pendiente" checked style="width:auto">Pendiente
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;font-weight:normal">
+              <input type="checkbox" id="rg-estado-parcial" checked style="width:auto">Parcial
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;font-weight:normal">
+              <input type="checkbox" id="rg-estado-pagado" checked style="width:auto">Pagado
+            </label>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary" id="rg-generar">Buscar</button>
+          <button class="btn btn-outline" id="rg-excel" disabled title="Presiona Buscar primero">Descargar Excel</button>
+        </div>
+        <p style="margin:6px 0 0;font-size:11.5px;color:var(--text-muted)">Presiona "Buscar" antes de descargar.</p>
+      </div>
+
+      <!-- ===== Filtros: Ingresos por fecha ===== -->
+      <div class="filtro-set" data-set="ingresos-fecha" hidden>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px">
+          <div class="modal-form-row" style="margin:0;max-width:170px">
+            <label for="ingresos-desde">Desde</label>
+            <input type="date" id="ingresos-desde" class="form-control">
+          </div>
+          <div class="modal-form-row" style="margin:0;max-width:170px">
+            <label for="ingresos-hasta">Hasta</label>
+            <input type="date" id="ingresos-hasta" class="form-control">
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary" id="ingresos-buscar">Buscar</button>
+          <button class="btn btn-outline" id="ingresos-excel" disabled title="Presiona Buscar primero">Descargar Excel</button>
+          <button class="btn btn-outline" id="ingresos-pdf" disabled title="Presiona Buscar primero">Descargar PDF</button>
+        </div>
+        <p style="margin:6px 0 0;font-size:11.5px;color:var(--text-muted)">Presiona "Buscar" antes de descargar.</p>
+      </div>
+
+      <!-- ===== Filtros: Reporte de deuda por cliente (mes unico) ===== -->
+      <div class="filtro-set" data-set="deuda-cliente" hidden>
+        <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:14px">
+          Detalle de facturacion de UN mes, organizado por puerto -- igual al PDF que se enviaba a mano.
+          Requiere que ese periodo ya tenga la boleta calculada (Consumo &rarr; "Calcular / recalcular periodo").
+        </p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px">
+          <div class="modal-form-row" style="margin:0;min-width:200px;flex:1">
+            <label for="deuda-corporativo">Cliente / Corporativo</label>
+            <select id="deuda-corporativo" class="form-control">
+              <option value="">Elige un cliente</option>
+            </select>
+          </div>
+          <div class="modal-form-row" style="margin:0;max-width:170px">
+            <label for="deuda-periodo">Mes</label>
+            <input type="month" id="deuda-periodo" class="form-control">
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary" id="deuda-buscar">Buscar</button>
+          <button class="btn btn-outline" id="deuda-pdf" disabled title="Presiona Buscar primero">Descargar PDF</button>
+        </div>
+        <p style="margin:6px 0 0;font-size:11.5px;color:var(--text-muted)">Presiona "Buscar" antes de descargar.</p>
+      </div>
+
+      <!-- ===== Filtros: Reporte de pagos por cliente ===== -->
+      <div class="filtro-set" data-set="pagos-cliente" hidden>
+        <div class="modal-form-row" style="margin:0 0 14px">
+          <label>Alcance</label>
+          <div class="segmented" role="radiogroup" style="margin-top:4px">
+            <label><input type="radio" name="pc-alcance" value="cliente" checked><span>Por cliente (total de todos sus puertos)</span></label>
+            <label><input type="radio" name="pc-alcance" value="puerto"><span>Por puerto (desglosado, todos los puertos del cliente)</span></label>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px">
+          <div class="modal-form-row" style="margin:0;min-width:200px;flex:1">
+            <label for="pc-corporativo">Cliente / Corporativo</label>
+            <select id="pc-corporativo" class="form-control">
+              <option value="">Elige un cliente</option>
+            </select>
+          </div>
+          <div class="modal-form-row" style="margin:0;max-width:170px">
+            <label for="pc-desde">Mes desde</label>
+            <input type="month" id="pc-desde" class="form-control">
+          </div>
+          <div class="modal-form-row" style="margin:0;max-width:170px">
+            <label for="pc-hasta">Mes hasta</label>
+            <input type="month" id="pc-hasta" class="form-control">
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary" id="pc-buscar">Buscar</button>
+          <button class="btn btn-outline" id="pc-excel" disabled title="Presiona Buscar primero">Descargar Excel</button>
+          <button class="btn btn-outline" id="pc-pdf" disabled title="Presiona Buscar primero">Descargar PDF</button>
+        </div>
+        <p style="margin:6px 0 0;font-size:11.5px;color:var(--text-muted)">Presiona "Buscar" antes de descargar.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Resultado</div>
+    </div>
+
+    <div class="resultado-set" data-set="deuda-mensual">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table" id="rg-tabla">
+            <thead><tr id="rg-encabezado"><th>Cliente</th><th>Total general</th></tr></thead>
+            <tbody id="rg-filas"><tr><td colspan="2">Elige los filtros y presiona "Buscar".</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="resultado-set" data-set="ingresos-fecha" hidden>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Moneda</th>
+                <th>Total cobrado</th>
+                <th>Cantidad de pagos</th>
+              </tr>
+            </thead>
+            <tbody id="ingresos-rows"><tr><td colspan="4">Elige un rango de fechas y presiona "Buscar".</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-body" style="border-top:1px solid var(--border-color)">
+        <strong>Total del rango:</strong> <span id="ingresos-total-rango">-</span>
+      </div>
+    </div>
+
+    <div class="resultado-set" data-set="deuda-cliente" hidden>
+      <div class="card-body">
+        <div id="deuda-preview"><p style="color:var(--text-muted)">Elige cliente y mes, luego presiona "Buscar".</p></div>
+      </div>
+    </div>
+
+    <div class="resultado-set" data-set="pagos-cliente" hidden>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table" id="pc-tabla">
+            <thead><tr id="pc-encabezado"><th>Cliente</th></tr></thead>
+            <tbody id="pc-rows"><tr><td>Elige un cliente y un rango de meses, luego presiona "Buscar".</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-body" style="border-top:1px solid var(--border-color)">
+        <strong>Total del rango:</strong> <span id="pc-total-rango">-</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>

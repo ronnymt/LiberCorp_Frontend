@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mensajes enviados | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/mensajes-enviados.js"></script>
+</head>
+<body data-shell="admin" data-page="mensajes-enviados" data-breadcrumb="Home > Mensajeria|editor-mensajes.html > Mensajes enviados">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-body">
+      <div class="row col-4" style="margin-bottom:0">
+        <div class="modal-form-row">
+          <label for="me-desde">Desde</label>
+          <input type="date" id="me-desde" class="form-control">
+        </div>
+        <div class="modal-form-row">
+          <label for="me-hasta">Hasta</label>
+          <input type="date" id="me-hasta" class="form-control">
+        </div>
+        <div class="modal-form-row">
+          <label for="me-porpagina">Filas por pagina</label>
+          <select id="me-porpagina" class="form-control">
+            <option value="15">15</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" style="gap:12px;flex-wrap:wrap">
+      <div class="card-title">Mensajes enviados</div>
+      <button type="button" class="btn btn-outline btn-sm" id="me-acciones-btn" disabled>Acciones</button>
+      <div class="search-box" style="width:260px;margin-left:auto">
+        <svg class="s-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
+        <input type="text" id="me-buscar-texto" placeholder="Buscar por cliente, numero, mensaje…" aria-label="Buscar en mensajes enviados">
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width:32px"><input type="checkbox" id="me-select-all" aria-label="Seleccionar todos"></th>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Fecha</th>
+              <th>Nº Destino</th>
+              <th>Estado</th>
+              <th>Gateway</th>
+              <th>Mensaje</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="me-rows"><tr><td colspan="9">Cargando...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="me-pagination" hidden></div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>

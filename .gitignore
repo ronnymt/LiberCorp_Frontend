@@ -1,0 +1,36 @@
+nbproject
+npm-debug.log
+node_modules
+.sass-cache
+
+# Build outputs
+dist/
+
+# Env
+.env
+
+# Vendor dependencies (generated from node_modules)
+vendors/
+bower_components/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+JQUERY_PHASE_OUT_PLAN.md
+COMPREHENSIVE_IMPROVEMENT_PLAN.md
+release.md
+JQUERY_ELIMINATION_PLAN.md
+
+# Local-only social-preview assets and tooling
+# (uploaded to GitHub repo settings directly, not referenced from any committed file)
+docs/social-preview.png
+scripts/social-preview.mjs

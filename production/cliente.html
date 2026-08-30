@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cliente | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/cliente.js"></script>
+</head>
+<body data-shell="admin" data-page="clientes" data-breadcrumb="Home &gt; Clientes|clientes.html &gt; Perfil de cliente">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-body" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:14px 20px;border-bottom:1px solid var(--border-color-light)">
+      <div class="avatar" id="cl-avatar" style="width:40px;height:40px;font-size:15px;flex-shrink:0">--</div>
+      <div style="flex:1;min-width:200px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <h1 id="cl-nombre" style="margin:0;font-size:17px;font-weight:700;line-height:1.2">Cargando...</h1>
+        <span class="cell-mono" id="cl-id" style="font-size:12px"></span>
+        <span class="status" id="cl-estado-badge"></span>
+        <span class="status status-blue" id="cl-tipo-cobro-badge"></span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+        <button class="btn btn-outline btn-sm" id="cl-editar-btn" style="height:32px">Editar</button>
+        <button class="btn btn-outline btn-sm" id="cl-activo-btn" style="height:32px"></button>
+      </div>
+    </div>
+    <div class="card-body p-0" style="padding:0 20px">
+      <div class="profile-tabs" id="cl-tabs">
+        <button type="button" class="profile-tab active" data-tab="resumen">Resumen</button>
+        <button type="button" class="profile-tab" data-tab="servicios">Servicios</button>
+        <button type="button" class="profile-tab" data-tab="trafico">Trafico</button>
+        <button type="button" class="profile-tab" data-tab="facturacion">Facturacion</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Resumen ===== -->
+  <div data-panel="resumen">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="info-eyebrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0ZM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+            Ficha del cliente
+          </div>
+          <div class="card-title">Datos del cliente</div>
+        </div>
+      </div>
+      <div class="card-body" style="padding:24px">
+        <div class="info-grid">
+          <div class="info-col">
+            <div class="info-field">
+              <span class="info-field-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0ZM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+                Titular
+              </span>
+              <span class="info-field-value" id="rs-titular">-</span>
+            </div>
+            <div class="info-field">
+              <span class="info-field-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                Correo
+              </span>
+              <span class="info-field-value" id="rs-correo">-</span>
+            </div>
+            <div class="info-field">
+              <span class="info-field-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25Z"/></svg>
+                Celular
+              </span>
+              <span class="info-field-value" id="rs-celular">-</span>
+            </div>
+            <div class="info-field">
+              <span class="info-field-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m3.62 3.62a4.5 4.5 0 01-1.242-7.244l4.5-4.5a4.5 4.5 0 016.364 6.364l-1.757 1.757"/></svg>
+                Puertos
+              </span>
+              <span class="info-field-value" id="rs-puertos">-</span>
+            </div>
+          </div>
+          <div class="info-col">
+            <div class="info-field">
+              <span class="info-field-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.169.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3Z"/><path d="M6 6h.008v.008H6V6Z"/></svg>
+                Tipo de cobro
+              </span>
+              <span class="info-field-value" id="rs-tipo-cobro">-</span>
+            </div>
+            <div class="info-field">
+              <span class="info-field-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.25" y="6.75" width="19.5" height="10.5" rx="2"/><circle cx="12" cy="12" r="2.25"/></svg>
+                Monto fijo mensual
+              </span>
+              <span class="info-field-value" id="rs-monto-fijo">-</span>
+            </div>
+            <div class="info-field">
+              <span class="info-field-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0V11.25a2.25 2.25 0 012.25-2.25h13.5a2.25 2.25 0 012.25 2.25v7.5"/></svg>
+                Dia de vencimiento
+              </span>
+              <span class="info-field-value" id="rs-dia-vencimiento">-</span>
+            </div>
+            <div class="info-field">
+              <span class="info-field-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0V11.25a2.25 2.25 0 012.25-2.25h13.5a2.25 2.25 0 012.25 2.25v7.5"/></svg>
+                Dia de creacion de boleta (referencial)
+              </span>
+              <span class="info-field-value" id="rs-dia-creacion">-</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Servicios ===== -->
+  <div data-panel="servicios" hidden>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Puertos</div></div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table">
+            <thead><tr><th>Puerto</th><th>Dispositivo</th><th>Servicio</th><th>Estado</th><th>Tarifa</th><th></th></tr></thead>
+            <tbody id="sv-rows"><tr><td colspan="6">Cargando...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Trafico =====
+       Monta el componente src/v4/consumo-tab.js directamente en esta pagina
+       (sin iframe, sin navegacion) -- el header y las tabs de arriba no se
+       mueven. Ver cargarTrafico() en cliente.js. -->
+  <div data-panel="trafico" hidden id="tr-panel"></div>
+
+  <!-- ===== Facturacion ===== -->
+  <div data-panel="facturacion" hidden>
+    <div class="profile-tabs" id="fc-subtabs" style="margin-bottom:20px">
+      <button type="button" class="profile-tab active" data-subtab="facturas">Facturas</button>
+      <button type="button" class="profile-tab" data-subtab="transacciones">Transacciones</button>
+      <button type="button" class="profile-tab" data-subtab="configuracion">Configuracion</button>
+    </div>
+
+    <div data-subpanel="facturas">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Facturas</div>
+          <div style="display:flex;gap:8px">
+            <button type="button" class="btn btn-outline btn-sm" id="fc-generar-siguiente-btn" hidden title="Genera la boleta del periodo siguiente al ultimo existente, repitiendo el monto -- para cuando el cliente paga adelantado">Generar boleta</button>
+            <button type="button" class="btn btn-outline btn-sm" id="fc-generar-historica-btn" hidden title="Carga a mano una boleta de un mes YA PASADO -- para historial de antes de este sistema, o un mes que nunca se calculo">Boleta manual</button>
+            <button type="button" class="btn btn-outline btn-sm" id="fc-generar-libre-btn" hidden>Generar boleta libre</button>
+            <button type="button" class="btn btn-primary btn-sm" id="fc-registrar-pago-libre" hidden>Registrar pago</button>
+          </div>
+        </div>
+        <div class="card-body p-0" id="fc-facturas-libre" hidden>
+          <p style="padding:16px;margin-bottom:0">
+            Este cliente es de tipo <strong>Libre</strong>: paga en temporadas al azar, sin boleta mensual. Usa
+            "Registrar pago" arriba para guardar cada pago cuando ocurra. "Generar boleta libre" solo crea un
+            documento con descripcion y monto para imprimir/enviar -- no afecta el saldo del cliente.
+          </p>
+          <div class="table-responsive">
+            <table class="table">
+              <thead><tr><th>Fecha</th><th>Descripcion</th><th>Monto</th></tr></thead>
+              <tbody id="fc-facturas-libre-rows"><tr><td colspan="3">Cargando...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-body p-0" id="fc-facturas-normal">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Periodo</th>
+                  <th>Emitido</th>
+                  <th>Vencimiento</th>
+                  <th>Total</th>
+                  <th>Pagado</th>
+                  <th>Fecha de pago</th>
+                  <th>Saldo</th>
+                  <th>Estado</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="fc-facturas-rows"><tr><td colspan="9">Cargando...</td></tr></tbody>
+            </table>
+          </div>
+          <div class="pagination" id="fc-facturas-pagination" hidden></div>
+        </div>
+      </div>
+    </div>
+
+    <div data-subpanel="transacciones" hidden>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Transacciones</div></div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table">
+              <thead><tr><th>Fecha</th><th>Monto</th><th>Cuenta</th><th>Comprobante</th><th>Registrado por</th></tr></thead>
+              <tbody id="fc-transacciones-rows"><tr><td colspan="5">Cargando...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-subpanel="configuracion" hidden>
+      <div class="card" style="max-width:480px">
+        <div class="card-header"><div class="card-title">Configuracion de facturacion</div></div>
+        <div class="card-body">
+          <div id="cf-preview-badges" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px"></div>
+          <form class="modal-form" novalidate>
+            <div class="modal-form-row">
+              <label for="cf-tipo-cobro">Tipo de cobro</label>
+              <select id="cf-tipo-cobro">
+                <option value="variable">Variable (cada puerto por su consumo en Mbps)</option>
+                <option value="fijo_parcial">Fijo parcial (cada puerto con su propio monto fijo)</option>
+                <option value="fijo_total">Fijo total (un monto mensual por toda la cuenta)</option>
+                <option value="libre">Libre (paga en temporadas al azar, sin boleta mensual)</option>
+              </select>
+            </div>
+            <div id="cf-fijo-row" class="modal-form-row" style="display:none">
+              <label for="cf-monto-fijo">Monto fijo mensual (toda la cuenta)</label>
+              <input type="number" id="cf-monto-fijo" step="0.01" min="0">
+            </div>
+            <div id="cf-fijo-moneda-row" class="modal-form-row" style="display:none">
+              <label for="cf-moneda-fijo">Moneda</label>
+              <select id="cf-moneda-fijo">
+                <option value="PEN">PEN</option>
+                <option value="USD">USD</option>
+              </select>
+            </div>
+            <div class="modal-form-row">
+              <label for="cf-dia-vencimiento">Dia de vencimiento (1-28)</label>
+              <input type="number" id="cf-dia-vencimiento" min="1" max="28" placeholder="Usa el default global">
+            </div>
+            <div class="modal-form-row">
+              <label for="cf-dia-creacion">Dia de creacion de boleta (1-28, referencial)</label>
+              <input type="number" id="cf-dia-creacion" min="1" max="28" placeholder="Sin definir">
+            </div>
+            <div class="modal-form-row">
+              <label for="cf-dias-crear-factura">Crear factura (override)</label>
+              <select id="cf-dias-crear-factura"></select>
+            </div>
+            <div class="modal-form-row">
+              <label for="cf-dias-gracia">Dias de gracia (override)</label>
+              <select id="cf-dias-gracia"></select>
+            </div>
+          </form>
+          <p style="font-size:11.5px;color:var(--text-muted);margin-top:8px">
+            El "dia de creacion" es solo informativo -- no cambia cuando el sistema genera la boleta de verdad
+            (eso lo sigue decidiendo LibreNMS). El dia de vencimiento vacio usa el default global
+            (Configuracion General &rarr; Vencimientos).
+          </p>
+          <button class="btn btn-primary btn-sm" id="cf-guardar" style="margin-top:8px">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>

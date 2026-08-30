@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte de caidas | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/reportes.js"></script>
+</head>
+<body data-shell="admin" data-page="reportes" data-breadcrumb="Home > Reporteria > Reporte de caidas">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="card">
+    <div class="card-header" style="gap:12px;flex-wrap:wrap">
+      <div class="card-title">Historial de caidas</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <input type="date" id="caidas-desde" class="form-control" style="width:150px">
+        <input type="date" id="caidas-hasta" class="form-control" style="width:150px">
+        <select id="caidas-corporativo" class="form-control" style="width:200px">
+          <option value="">Todos los clientes</option>
+        </select>
+        <button class="btn btn-primary btn-sm" id="caidas-buscar">Buscar</button>
+        <button class="btn btn-outline btn-sm" id="caidas-excel" disabled title="Presiona Buscar primero">Descargar Excel</button>
+        <button class="btn btn-outline btn-sm" id="caidas-pdf" disabled title="Presiona Buscar primero">Descargar PDF</button>
+      </div>
+      <p style="width:100%;margin:6px 0 0;font-size:11.5px;color:var(--text-muted)">Presiona "Buscar" antes de descargar.</p>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Corporativo</th>
+              <th>Puerto</th>
+              <th>Device</th>
+              <th>Inicio</th>
+              <th>Fin</th>
+              <th>Duracion</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="caidas-rows"><tr><td colspan="7">Elige un rango de fechas y presiona Buscar.</td></tr></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="caidas-pagination" hidden></div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clientes | LiberCorp</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<script type="module" src="/src/main-v4.js"></script>
+<script type="module" src="/src/pages/clientes.js"></script>
+</head>
+<body data-shell="admin" data-page="clientes" data-breadcrumb="Home > Clientes">
+
+<main class="main">
+<div class="page-wrapper">
+
+  <div class="card">
+    <div class="card-header" style="gap:12px;flex-wrap:wrap;justify-content:space-between">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <div class="search-box" style="width:280px">
+          <svg class="s-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
+          <input type="text" id="clientes-search" placeholder="Buscar por corporativo, titular o correo…" aria-label="Buscar clientes">
+        </div>
+        <select id="clientes-filtro-estado" class="form-control" style="width:160px" aria-label="Filtrar por estado">
+          <option value="activos" selected>Activos</option>
+          <option value="todos">Todos</option>
+          <option value="deshabilitados">Deshabilitados</option>
+        </select>
+        <select id="clientes-filtro-tipo-cobro" class="form-control" style="width:190px" aria-label="Filtrar por tipo de pago">
+          <option value="todos" selected>Tipo de pago: Todos</option>
+          <option value="variable">Variable</option>
+          <option value="fijo_parcial">Fijo parcial</option>
+          <option value="fijo_total">Fijo total</option>
+          <option value="libre">Libre</option>
+        </select>
+      </div>
+      <span class="status status-blue" id="kpi-corporativos">Cargando…</span>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width:19%">Corporativo</th>
+              <th style="width:14%">Titular</th>
+              <th style="width:15%">Contacto</th>
+              <th style="width:110px">Ultimo pago</th>
+              <th style="width:140px">Deuda actual</th>
+              <th style="width:70px">Puertos</th>
+              <th data-orderable="false" style="width:230px;text-align:center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="clientes-rows"><tr><td colspan="7">Cargando...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="clientes-pagination" hidden></div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+</body>
+</html>
