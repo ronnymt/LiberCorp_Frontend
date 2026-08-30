@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ColorlibHQ/gentelella.git"
+    "url": "git+https://github.com/ronnymt/LiberCorp_Frontend.git"
   },
   "keywords": [
     "admin",
@@ -40,7 +40,6 @@
     "command-palette",
     "theme-generator"
   ],
-  "author": "Aigars Silkalns",
   "license": "MIT",
   "main": "src/main-v4.js",
   "types": "types/gentelella.d.ts",
@@ -59,9 +58,9 @@
     "vite.config.js"
   ],
   "bugs": {
-    "url": "https://github.com/ColorlibHQ/gentelella/issues"
+    "url": "https://github.com/ronnymt/LiberCorp_Frontend/issues"
   },
-  "homepage": "https://github.com/ColorlibHQ/gentelella#readme",
+  "homepage": "https://github.com/ronnymt/LiberCorp_Frontend#readme",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.62.1",
