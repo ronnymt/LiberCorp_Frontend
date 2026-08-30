@@ -61,7 +61,6 @@ scripts/
   screenshots.mjs          # npm run screenshots
   smoke.mjs                # npm run smoke
   deploy-preview.sh        # npm run deploy:preview
-examples/                  # Standalone integrations (Express/SQLite, etc.)
 ```
 
 ## Conventions
@@ -168,7 +167,7 @@ npm run lint:fix
 npm run format             # Prettier write
 npm run format:check
 npm run new -- <slug>      # Scaffold a page
-npm run screenshots        # 22 pages × light+dark → docs/screenshots/
+npm run screenshots        # key pages × light+dark → docs/screenshots/
 npm run smoke              # Boot dev server, fetch every page, assert 200
 npm run analyze            # Build + open dist/stats.html
 npm run deploy:preview     # Build + R2 sync

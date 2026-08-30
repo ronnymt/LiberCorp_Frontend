@@ -243,77 +243,8 @@ declare module 'gentelella/v4/page-actions' {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-//  data-adapter.js — seed ↔ http data source pattern
-// ────────────────────────────────────────────────────────────────────────
-
-declare module 'gentelella/v4/data-adapter' {
-  /** True when `?api=1` in URL or `window.__GENTELELLA_API__ = true`. */
-  export function useApiMode(): boolean;
-
-  /** Unified surface every adapter implements — keeps render code the same. */
-  export interface Adapter<T = unknown> {
-    list(query?: Record<string, unknown>): Promise<T[]>;
-    get(id: string | number): Promise<T | null>;
-    create(data: Partial<T>): Promise<T>;
-    update(id: string | number, patch: Partial<T>): Promise<T | null>;
-    remove(id: string | number): Promise<boolean | { ok: true }>;
-  }
-
-  export interface SeedAdapter<T> extends Adapter<T> {
-    /** Reset to the original seed array. Useful for tests / demos. */
-    reset(): void;
-  }
-
-  /**
-   * In-memory adapter backed by a hardcoded array. Default for demo pages.
-   * `filter` is consulted when `list({...query})` is called so the same
-   * adapter can power per-folder / per-status views.
-   */
-  export function seedAdapter<T>(
-    seed: T[],
-    filter?: (item: T, query: Record<string, unknown>) => boolean
-  ): SeedAdapter<T>;
-
-  export interface HttpAdapterOptions {
-    /** Extract the array from `{ <key>: [...] }` on `list`. */
-    listKey?: string;
-    /** Inject a custom fetch (useful for auth headers, retries). */
-    fetch?: typeof fetch;
-  }
-
-  /** REST-conventions adapter against a JSON endpoint. */
-  export function httpAdapter<T>(baseUrl: string, opts?: HttpAdapterOptions): Adapter<T>;
-
-  /** Thrown by `httpAdapter` on non-2xx responses. */
-  export class HttpError extends Error {
-    readonly status: number;
-    constructor(status: number, message: string);
-  }
-}
-
-// ────────────────────────────────────────────────────────────────────────
 //  Lazy-loaded page modules (init functions)
 // ────────────────────────────────────────────────────────────────────────
-
-declare module 'gentelella/v4/inbox' {
-  /**
-   * Mount the interactive inbox into `#inbox-root`. With `?api=1`, hydrates
-   * initial messages from `/api/messages`; otherwise uses the seed array.
-   */
-  export function initInbox(): Promise<void>;
-}
-
-declare module 'gentelella/v4/kanban' {
-  export function initKanban(): void;
-}
-
-declare module 'gentelella/v4/calendar' {
-  export function initCalendar(): void;
-}
-
-declare module 'gentelella/v4/file-manager' {
-  export function initFileManager(): void;
-}
 
 declare module 'gentelella/v4/settings' {
   /** Wire all settings interactions: persistence, save/cancel, integrations, etc. Idempotent. */
@@ -329,20 +260,6 @@ declare module 'gentelella/v4/form-controls' {
    * Idempotent — safe to call multiple times.
    */
   export function initFormControls(): void;
-}
-
-declare module 'gentelella/v4/details' {
-  export interface ProjectDetail {
-    title: string; client: string; status: string; sCls: string;
-    desc: string; pct: number; due: string;
-    members: Array<{ name: string; ini: string; color: string }>;
-  }
-  export interface ContactDetail {
-    name: string; ini: string; color: string; role: string;
-    projects: number; tasks: number; msgs: number;
-  }
-  export function openProjectModal(d: ProjectDetail): void;
-  export function openContactModal(d: ContactDetail): void;
 }
 
 // ────────────────────────────────────────────────────────────────────────
@@ -382,92 +299,6 @@ type GentelellaToken =
 
 interface CSSStyleDeclaration {
   setProperty(property: GentelellaToken, value: string | null, priority?: string): void;
-}
-
-// ────────────────────────────────────────────────────────────────────────
-//  markup.js — string-returning helpers for repeated markup patterns
-// ────────────────────────────────────────────────────────────────────────
-
-declare module 'gentelella/v4/markup' {
-  export function escapeHtml(value: unknown): string;
-
-  export type StatColor = 'teal' | 'green' | 'blue' | 'yellow' | 'red' | 'purple' | 'pink' | 'azure';
-  export type StatusColor = 'green' | 'blue' | 'yellow' | 'red' | 'gray';
-  export type BannerVariant = 'danger' | 'warning' | 'info' | 'success';
-
-  export interface PageHeaderOptions {
-    title: string;
-    pretitle?: string;
-    actionsHtml?: string;
-  }
-  export function pageHeader(opts: PageHeaderOptions): string;
-
-  export interface StatTileOptions {
-    label: string;
-    value: string;
-    color?: StatColor;
-    iconHtml?: string;
-    subtext?: string;
-    change?: { pct: string; direction: 'up' | 'down' };
-  }
-  export function statTile(opts: StatTileOptions): string;
-
-  export function statusBadge(label: string, color: StatusColor): string;
-
-  export interface CustomerCellOptions {
-    name: string;
-    initials?: string;
-    avatarColor?: string;
-  }
-  export function customerCell(opts: CustomerCellOptions): string;
-
-  export interface ActivityItemOptions {
-    bodyHtml: string;
-    time: string;
-    initials?: string;
-    avatarBg?: string;
-  }
-  export function activityItem(opts: ActivityItemOptions): string;
-
-  export interface VisitorRowOptions {
-    name: string;
-    pct: number;
-    flag?: string;
-  }
-  export function visitorRow(opts: VisitorRowOptions): string;
-
-  export interface EmptyStateOptions {
-    title: string;
-    desc?: string;
-    iconHtml?: string;
-    actionHtml?: string;
-  }
-  export function emptyState(opts: EmptyStateOptions): string;
-
-  export interface BannerOptions {
-    body: string;
-    variant?: BannerVariant;
-    title?: string;
-    iconHtml?: string;
-    actionsHtml?: string;
-  }
-  export function banner(opts: BannerOptions): string;
-
-  export function skeletonRows(cols: number, rows?: number): string;
-}
-
-// ────────────────────────────────────────────────────────────────────────
-//  Global window augmentation
-// ────────────────────────────────────────────────────────────────────────
-
-declare global {
-  interface Window {
-    /**
-     * Set to `true` before the page loads to force API mode without needing
-     * `?api=1` in the URL. Honored by `useApiMode()` from data-adapter.
-     */
-    __GENTELELLA_API__?: boolean;
-  }
 }
 
 export {};

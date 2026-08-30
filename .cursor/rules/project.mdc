@@ -112,7 +112,7 @@ npm run preview            # Serve built dist/ on :9174
 npm run lint               # ESLint over src/
 npm run format             # Prettier write
 npm run new -- <slug>      # Scaffold a page
-npm run screenshots        # Playwright capture (22 pages × light+dark)
+npm run screenshots        # Playwright capture (key pages × light+dark)
 npm run smoke              # Hit every page, assert 200
 npm run analyze            # Build + open dist/stats.html
 npm run deploy:preview     # Build + R2 sync

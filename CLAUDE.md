@@ -21,7 +21,7 @@ npm run format             # Prettier write
 npm run format:check       # Prettier check
 
 npm run new -- <slug>      # Scaffold a new page under production/
-npm run screenshots        # Playwright captures 22 pages × light+dark → docs/screenshots/
+npm run screenshots        # Playwright captures key pages × light+dark → docs/screenshots/
 npm run smoke              # Boot dev server, hit every page, assert 200
 npm run analyze            # Build + open dist/stats.html
 npm run deploy:preview     # Build + sync to R2 with per-file cache headers
@@ -97,11 +97,9 @@ public/                     # Static assets copied verbatim to dist/
 types/gentelella.d.ts       # TypeScript declarations for the public JS surface
 scripts/
 ├── new-page.mjs            # Scaffold a page + register in NAV
-├── screenshots.mjs         # Playwright capture (22 pages × 2 themes)
+├── screenshots.mjs         # Playwright capture (key pages × 2 themes)
 ├── smoke.mjs               # Boot dev server, fetch every page
 └── deploy-preview.sh       # Build + R2 sync + cache-header pass
-
-examples/                   # Standalone integration examples (Express/SQLite, etc.)
 ```
 
 ### Adding a new page

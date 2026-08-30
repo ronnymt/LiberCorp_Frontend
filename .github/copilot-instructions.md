@@ -59,7 +59,7 @@ npm run lint               # ESLint over src/
 npm run lint:fix
 npm run format             # Prettier write
 npm run new -- <slug>      # Scaffold a page (use --nav-group, --icon, --title …)
-npm run screenshots        # Playwright capture (22 pages × light+dark)
+npm run screenshots        # Playwright capture (key pages × light+dark)
 npm run smoke              # Boot dev server, hit every page, assert 200
 npm run analyze            # Build + open dist/stats.html
 npm run deploy:preview     # Build + R2 sync with cache headers
